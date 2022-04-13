@@ -2,10 +2,12 @@
 win_x, win_y = 200, 100
 win_width, win_height = 1000, 600
 
-txt_hello = ''
-txt_next = ''
+txt_hello = ('Добро пожаловать в программу' +
+'по оценке ващего здоровье с помощью теста руфье'
+)
+txt_next = 'Продолжить'
 txt_instruction = '' 
-txt_title = ''
+txt_title = 'Тесть Руфье'
 txt_name = ''
 txt_hintname = ""
 txt_hintage = ""
