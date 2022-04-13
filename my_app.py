@@ -16,7 +16,7 @@ mainApp = QApplication([])
 
 class MainWin(QWidget):
     def clicked(self):
-        print('АААА')
+        self.hide()
     def set_appear(self):
         self.setWindowTitle(txt_title)
         self.resize(win_width, win_height)
@@ -25,8 +25,8 @@ class MainWin(QWidget):
         self.mainLayout = QVBoxLayout()
         self.helloText = QLabel(txt_hello)
         self.startBtn = QPushButton(txt_next)
-        self.mainLayout.addWidget(self.helloText)
-        self.mainLayout.addWidget(self.startBtn)
+        self.mainLayout.addWidget(self.helloText, alignment= Qt.AlignCenter)
+        self.mainLayout.addWidget(self.startBtn, alignment= Qt.AlignCenter)
         self.setLayout(self.mainLayout)
     def connects(self):
         self.startBtn.clicked.connect(self.clicked)
