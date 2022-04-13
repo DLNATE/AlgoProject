@@ -1,5 +1,5 @@
 
-win_x, win_y = 200, 100
+win_x, win_y = 300, 100
 win_width, win_height = 1000, 600
 
 txt_hello = ('Добро пожаловать в программу' +
