@@ -7,7 +7,7 @@ txt_hello = ('Добро пожаловать в программу' +
 )
 txt_next = 'Продолжить'
 txt_instruction = '' 
-txt_title = 'Тесть Руфье'
+txt_title = 'Тест Руфье'
 txt_name = ''
 txt_hintname = ""
 txt_hintage = ""
