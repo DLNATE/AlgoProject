@@ -1,5 +1,6 @@
 # напиши здесь код основного приложения и первого экрана
 from instr import *
+from second_win import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QApplication,
@@ -16,6 +17,7 @@ mainApp = QApplication([])
 
 class MainWin(QWidget):
     def clicked(self):
+        self.secondWin = SecondWin()
         self.hide()
     def set_appear(self):
         self.setWindowTitle(txt_title)
