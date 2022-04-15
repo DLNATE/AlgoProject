@@ -8,6 +8,7 @@ txt_hello = ('Добро пожаловать в программу' +
 txt_next = 'Продолжить'
 txt_instruction = '' 
 txt_title = 'Тест Руфье'
+txt_finalTitle = 'Итог'
 txt_name = ''
 txt_hintname = ""
 txt_hintage = ""
