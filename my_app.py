@@ -26,8 +26,10 @@ class MainWin(QWidget):
     def initUI(self):
         self.mainLayout = QVBoxLayout()
         self.helloText = QLabel(txt_hello)
+        self.instrText = QLabel(txt_instruction)
         self.startBtn = QPushButton(txt_next)
         self.mainLayout.addWidget(self.helloText, alignment= Qt.AlignCenter)
+        self.mainLayout.addWidget(self.instrText, alignment= Qt.AlignCenter)
         self.mainLayout.addWidget(self.startBtn, alignment= Qt.AlignCenter)
         self.setLayout(self.mainLayout)
     def connects(self):
