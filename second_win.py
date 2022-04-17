@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import (
     QPushButton
 )
 class SecondWin(QWidget):
-    def clicked(self):
+    def next_window(self):
         pass
     def set_appear(self):
         self.setWindowTitle(txt_title)
