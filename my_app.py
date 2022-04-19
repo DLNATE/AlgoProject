@@ -24,6 +24,10 @@ class MainWin(QWidget):
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
     def initUI(self):
+        self.whoProgrammers = QMessageBox()
+        self.whoProgrammers.setText(programmers)
+        self.whoProgrammers.setWindowTitle('Авторы')
+        self.whoProgrammers.show()
         self.mainLayout = QVBoxLayout()
         self.helloText = QLabel(txt_hello)
         self.instrText = QLabel(txt_instruction)
