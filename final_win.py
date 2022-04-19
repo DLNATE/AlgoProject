@@ -25,7 +25,7 @@ class FinalWin(QWidget):
                 self.resultTest = 'Удовлетворительный'
             elif self.index >= 21:
                 self.resultTest = 'Низкий'
-        elif self.age == 9 and self.age == 10:
+        elif self.age == 9 or self.age == 10:
             if self.index >= 4.9:
                 self.resultTest = 'Высокий'
             elif self.index >= 5 and self.index <= 10.4:
@@ -36,7 +36,7 @@ class FinalWin(QWidget):
                 'Удовлетворительный'
             elif self.index >= 19.5:
                 self.resultTest = 'Низкий'
-        elif self.age == 11 and self.age == 12:
+        elif self.age == 11 or self.age == 12:
             if self.index <= 3.4:
                 self.resultTest = 'Высокий'
             elif self.index >= 3.5 and self.index <= 8.9:
@@ -46,6 +46,28 @@ class FinalWin(QWidget):
             elif self.index >= 14 and self.index <= 17.9:
                 self.resultTest = 'Удовлетворительный'
             elif self.index >= 18:
+                self.resultTest = 'Низкий'
+        elif self.age == 13 or self.age == 14:
+            if self.index >= 1.9:
+                self.resultTest = 'Высокий'
+            elif self.index >= 2 and self.index <= 7.4:
+                self.resultTest = 'Выше среднего'
+            elif self.index >= 7.5 and self.index <= 12.4:
+                self.resultTest = 'Средний'
+            elif self.index >= 12.5 and self.index <= 16.4:
+                self.resultTest = 'Удовлетворительный'
+            elif self.index >= 18:
+                self.resultTest = 'Низкий'
+        elif self.age >= 15:
+            if self.inidex <= 0.4:
+                self.resultTest = 'Высокий'
+            elif self.index >= 0.5 and self.index <= 5.9:
+                self.resultTest = 'Выше среднего'
+            elif self.index >= 6 and self.index <= 10.9:
+                self.resultTest = 'Средний'
+            elif self.index >= 11 and self.index <= 14.9:
+                self.resultTest = 'Удовлетворительный'
+            elif self.index >= 15:
                 self.resultTest = 'Низкий'
     def set_appear(self):
         self.setWindowTitle(txt_finalwin)
