@@ -75,6 +75,10 @@ class FinalWin(QWidget):
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
     def initUI(self):
+        self.thkForUsing = QMessageBox()
+        self.thkForUsing.setWindowTitle('Спасибо за использование!')
+        self.thkForUsing.setText(programmers)
+        self.thkForUsing.show()
         self.mainLayout = QVBoxLayout()
         self.yourIndex = QLabel('Ваш индекс Руфье: '+ str(self.index))
         self.yourResults = QLabel('Ваш результат: '+self.resultTest)
