@@ -1,4 +1,5 @@
 # напиши здесь код третьего экрана приложения
+from json.tool import main
 from instr import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
@@ -13,7 +14,7 @@ from PyQt5.QtWidgets import (
 )
 class FinalWin(QWidget):
     def results(self):
-        self.index = (4*(int(self.test1_result), int(self.test2_result), int(self.test3_result))- 200) / 10
+        self.index = (4*(int(self.test1_result)+int(self.test2_result)+int(self.test3_result))- 200) / 10
         if self.age == 7 or self.age == 8:
             if self.index <= 6.4:
                 self.resultTest = 'Высокий'
@@ -26,7 +27,7 @@ class FinalWin(QWidget):
             elif self.index >= 21:
                 self.resultTest = 'Низкий'
         elif self.age == 9 or self.age == 10:
-            if self.index >= 4.9:
+            if self.index <= 4.9:
                 self.resultTest = 'Высокий'
             elif self.index >= 5 and self.index <= 10.4:
                 self.resultTest = 'Выше среднего'
@@ -48,7 +49,7 @@ class FinalWin(QWidget):
             elif self.index >= 18:
                 self.resultTest = 'Низкий'
         elif self.age == 13 or self.age == 14:
-            if self.index >= 1.9:
+            if self.index <= 1.9:
                 self.resultTest = 'Высокий'
             elif self.index >= 2 and self.index <= 7.4:
                 self.resultTest = 'Выше среднего'
@@ -74,7 +75,12 @@ class FinalWin(QWidget):
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
     def initUI(self):
-        self.main
+        self.mainLayout = QVBoxLayout()
+        self.yourIndex = QLabel('Ваш индекс Руфье: '+ str(self.index))
+        self.yourResults = QLabel('Ваш результат: '+self.resultTest)
+        self.mainLayout.addWidget(self.yourIndex, alignment= Qt.AlignCenter)
+        self.mainLayout.addWidget(self.yourResults, alignment= Qt.AlignCenter)
+        self.setLayout(self.mainLayout)
     def connects(self):
         pass
     def __init__(self, age, test1_result, test2_result, test3_result):
@@ -83,8 +89,8 @@ class FinalWin(QWidget):
         self.test1_result = test1_result
         self.test2_result = test2_result
         self.test3_result = test3_result
+        self.results()
         self.set_appear()
         self.initUI()
         self.connects()
         self.show()
-        
