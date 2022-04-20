@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import (
 mainApp = QApplication([])
 
 class MainWin(QWidget):
-    def clicked(self):
+    def next_window(self):
         self.secondWin = SecondWin()
         self.hide()
     def set_appear(self):
@@ -24,14 +24,20 @@ class MainWin(QWidget):
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
     def initUI(self):
+        self.whoProgrammers = QMessageBox()
+        self.whoProgrammers.setText(programmers)
+        self.whoProgrammers.setWindowTitle('Авторы')
+        self.whoProgrammers.show()
         self.mainLayout = QVBoxLayout()
         self.helloText = QLabel(txt_hello)
+        self.instrText = QLabel(txt_instruction)
         self.startBtn = QPushButton(txt_next)
         self.mainLayout.addWidget(self.helloText, alignment= Qt.AlignCenter)
+        self.mainLayout.addWidget(self.instrText, alignment= Qt.AlignCenter)
         self.mainLayout.addWidget(self.startBtn, alignment= Qt.AlignCenter)
         self.setLayout(self.mainLayout)
     def connects(self):
-        self.startBtn.clicked.connect(self.clicked)
+        self.startBtn.clicked.connect(self.next_window)
     def __init__(self):
         super().__init__()
         self.set_appear()

@@ -19,6 +19,8 @@ class SecondWin(QWidget):
         self.btn_test1.clicked.connect(self.timer_test)
         self.btn_test2.clicked.connect(self.timer_sits)
         self.btn_test3.clicked.connect(self.timer_final)
+    def next_window(self):
+        pass
     def set_appear(self):
         self.setWindowTitle(txt_title)
         self.setFixedSize(win_width, win_height)
