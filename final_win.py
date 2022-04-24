@@ -60,7 +60,7 @@ class FinalWin(QWidget):
             elif self.index >= 18:
                 self.resultTest = 'Низкий'
         elif self.age >= 15:
-            if self.inidex <= 0.4:
+            if self.index <= 0.4:
                 self.resultTest = 'Высокий'
             elif self.index >= 0.5 and self.index <= 5.9:
                 self.resultTest = 'Выше среднего'
