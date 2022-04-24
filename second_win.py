@@ -18,10 +18,11 @@ class SecondWin(QWidget):
     def connects(self):
         self.Btn1.clicked.connect(self.timer_1)
         self.Btn2.clicked.connect(self.timer_2)
-        # self.btn_test2.clicked.connect(self.timer_sits)
-        # self.btn_test3.clicked.connect(self.timer_final)
+        self.Btn3.clicked.connect(self.timer_3)
+        self.Btn4.clicked.connect(self.next_window)
     def next_window(self):
-        pass
+        self.finalwin = FinalWin(self.line2.text(), self.test1_result.text(), self.test2_result.text(), self.test3_result.text())
+        self.hide()
     def set_appear(self):
         self.setWindowTitle(txt_title)
         self.setFixedSize(win_width, win_height)
@@ -40,9 +41,9 @@ class SecondWin(QWidget):
         self.Btn4 = QPushButton('Отправить результаты')
         self.line1 = QLineEdit()
         self.line2 = QLineEdit()
-        self.line3 = QLineEdit()
-        self.line4 = QLineEdit()
-        self.line5 = QLineEdit()
+        self.test1_result = QLineEdit()
+        self.test2_result = QLineEdit()
+        self.test3_result = QLineEdit()
         self.Layout.addWidget(self.Text1, alignment= Qt.AlignLeft)
         self.Layout.addWidget(self.line1, alignment= Qt.AlignLeft)
 
@@ -51,7 +52,7 @@ class SecondWin(QWidget):
 
         self.Layout.addWidget(self.Text3, alignment= Qt.AlignLeft)
         self.Layout.addWidget(self.Btn1, alignment= Qt.AlignLeft)
-        self.Layout.addWidget(self.line3, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.test1_result, alignment= Qt.AlignLeft)
 
         self.Layout.addWidget(self.Text4, alignment= Qt.AlignLeft)
         self.Layout.addWidget(self.Btn2, alignment= Qt.AlignLeft)
@@ -59,8 +60,8 @@ class SecondWin(QWidget):
         self.Layout.addWidget(self.Text5, alignment= Qt.AlignLeft)
         self.Layout.addWidget(self.Btn3, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.line4, alignment= Qt.AlignLeft)
-        self.Layout.addWidget(self.line5, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.test2_result, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.test3_result, alignment= Qt.AlignLeft)
         
         self.Layout.addWidget(self.Btn4, alignment= Qt.AlignCenter)
         
@@ -90,9 +91,9 @@ class SecondWin(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer1Event)
         self.timer.start(1000)
-    def timer_2(self):
+    def timer_3(self):
         global time
-        time = QTime(0, 0, 30)
+        time = QTime(0, 1, 0)
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer2Event)
         self.timer.start(1000)
@@ -104,13 +105,17 @@ class SecondWin(QWidget):
         self.Text22.setStyleSheet("color: rgb(0,0,0)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
-    def timer1Event(self):
+    def timer2Event(self):
         global time
         time = time.addSecs(-1)
         self.Text22.setText(time.toString("hh:mm:ss"))
         
-        self.Text22.setStyleSheet("color: rgb(0,0,0)")
+        
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
-        
-
+        if time.toString("hh:mm:ss") == "00:00:45":
+            self.Text22.setStyleSheet("color: rgb(0,250,0)")
+        if time.toString("hh:mm:ss") == "00:00:15":
+            self.Text22.setStyleSheet("color: rgb(0,0,0)")
+        if time.toString("hh:mm:ss") == "00:00:59":
+            self.Text22.setStyleSheet("color: rgb(0,0,0)")
