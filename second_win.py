@@ -12,13 +12,14 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QPushButton
 )
+from PyQt5.QtCore import Qt, QTimer, QTime
 
 class SecondWin(QWidget):
-    def clicked(self):
-        self.btn_test1.clicked.connect(self.timer_test)
-        self.btn_test1.clicked.connect(self.timer_test)
-        self.btn_test2.clicked.connect(self.timer_sits)
-        self.btn_test3.clicked.connect(self.timer_final)
+    def connects(self):
+        self.Btn1.clicked.connect(self.timer_1)
+        self.Btn2.clicked.connect(self.timer_2)
+        # self.btn_test2.clicked.connect(self.timer_sits)
+        # self.btn_test3.clicked.connect(self.timer_final)
     def next_window(self):
         pass
     def set_appear(self):
@@ -27,6 +28,7 @@ class SecondWin(QWidget):
         self.move(win_x, win_y)
     def initUI(self):
         self.Layout = QVBoxLayout()
+        self.Layout2 = QVBoxLayout()
         self.Text1 = QLabel('Введите Ф.И.О.:')
         self.Text2 = QLabel('Полных лет:')
         self.Text3 = QLabel('Лягте на спину и замерьте пульс за 15 секунд. Нажмите кнопку "Начать первый тест", чтобы запустить таймер.\nРезультат запишите в соответствующее поле.')
@@ -41,29 +43,34 @@ class SecondWin(QWidget):
         self.line3 = QLineEdit()
         self.line4 = QLineEdit()
         self.line5 = QLineEdit()
-        self.Layout.addWidget(self.Text1)
-        self.Layout.addWidget(self.line1)
+        self.Layout.addWidget(self.Text1, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.line1, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.Text2)
-        self.Layout.addWidget(self.line2)
+        self.Layout.addWidget(self.Text2, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.line2, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.Text3)
-        self.Layout.addWidget(self.Btn1)
-        self.Layout.addWidget(self.line3)
+        self.Layout.addWidget(self.Text3, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.Btn1, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.line3, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.Text4)
-        self.Layout.addWidget(self.Btn2)
+        self.Layout.addWidget(self.Text4, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.Btn2, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.Text5)
-        self.Layout.addWidget(self.Btn3)
+        self.Layout.addWidget(self.Text5, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.Btn3, alignment= Qt.AlignLeft)
 
-        self.Layout.addWidget(self.line3)
-        self.Layout.addWidget(self.line5)
+        self.Layout.addWidget(self.line4, alignment= Qt.AlignLeft)
+        self.Layout.addWidget(self.line5, alignment= Qt.AlignLeft)
+        
         self.Layout.addWidget(self.Btn4, alignment= Qt.AlignCenter)
         
 
-    def connects(self):
-        pass
+
+
+        self.Text22 = QLabel("00:00:15")
+        self.Layout.addWidget(self.Text22)
+        self.setLayout(self.Layout)
+    
     def __init__(self):
         super().__init__()
         self.set_appear()
@@ -71,20 +78,39 @@ class SecondWin(QWidget):
         self.connects()
         self.show()
 
-    def timer_test(self):
+    def timer_1(self):
         global time
-        time = QTime(0, 1, 0)
+        time = QTime(0, 0, 15)
         self.timer = QTimer()
-        self.timer.timeout.connect(self.timer3Event)
+        self.timer.timeout.connect(self.timer1Event)
         self.timer.start(1000)
-
+    def timer_2(self):
+        global time
+        time = QTime(0, 0, 30)
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.timer1Event)
+        self.timer.start(1000)
+    def timer_2(self):
+        global time
+        time = QTime(0, 0, 30)
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.timer2Event)
+        self.timer.start(1000)
     def timer1Event(self):
         global time
         time = time.addSecs(-1)
-        self.text_timer.setText(time.toString("hh:mm:ss"))
-        self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
-        self.text_timer.setStyleSheet("color: rgb(0,0,0)")
+        self.Text22.setText(time.toString("hh:mm:ss"))
+        
+        self.Text22.setStyleSheet("color: rgb(0,0,0)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
-
+    def timer1Event(self):
+        global time
+        time = time.addSecs(-1)
+        self.Text22.setText(time.toString("hh:mm:ss"))
+        
+        self.Text22.setStyleSheet("color: rgb(0,0,0)")
+        if time.toString("hh:mm:ss") == "00:00:00":
+            self.timer.stop()
+        
 
