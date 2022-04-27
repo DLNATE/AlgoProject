@@ -33,4 +33,4 @@ txt_res2 = "удовлетворительная. Обратитесь к вра
 txt_res3 = "средняя. Возможно, стоит дополнительно обследоваться у врача."
 txt_res4 = "выше среднего"
 txt_res5 = "высокая"
-programmers = 'Создали DLNATE и VladisTuk'
+programmers = 'Создала IT Studio TheTukan'
