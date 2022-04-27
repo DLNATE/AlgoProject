@@ -2,6 +2,7 @@
 from instr import *
 import json
 import os.path
+import os
 from second_win import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
@@ -82,6 +83,7 @@ def main():
             self.initUI()
             self.connects()
             self.show()
+    os.mkdir('src/')
     data = {
         'user.name' : '',
         'user.age' : '',
@@ -121,8 +123,6 @@ def main():
             self.mainLayout.addWidget(self.userNameLine, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.userAgeLine, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.profilecreateBtn, alignment= Qt.AlignCenter)
-            
-
             self.profilecreateBtn.clicked.connect(self.saveProfile)
         def newProfileInit(self):
             self.profileInit(self.userData)
@@ -186,7 +186,8 @@ def main():
                     self.radioBtnGroup.addButton(self.thirdProfileBtn)
                 self.mainLayout.addLayout(self.profilesLayout)
         def runMainWindow(self):
-            mw = MainWin(self.userData)
+            self.hide()
+            self.mw = MainWin(self.userData)
         def connects(self):
             self.newProfileBtn.clicked.connect(self.creatProfile)   
             self.goGuest.clicked.connect(self.runMainWindow)
