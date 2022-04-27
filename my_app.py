@@ -82,6 +82,8 @@ def main():
             self.initUI()
             self.connects()
             self.show()
+    if os.path.exists('src/') == False:
+        os.mkdir('src/')
     data = {
         'user.name' : '',
         'user.age' : '',
@@ -186,7 +188,8 @@ def main():
                     self.radioBtnGroup.addButton(self.thirdProfileBtn)
                 self.mainLayout.addLayout(self.profilesLayout)
         def runMainWindow(self):
-            mw = MainWin(self.userData)
+            self.hide()
+            self.mw = MainWin(self.userData)
         def connects(self):
             self.newProfileBtn.clicked.connect(self.creatProfile)   
             self.goGuest.clicked.connect(self.runMainWindow)
