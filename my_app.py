@@ -126,7 +126,7 @@ def main():
             self.mainLayout.addWidget(self.userAgeLine, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.profilecreateBtn, alignment= Qt.AlignCenter)
             self.profilecreateBtn.clicked.connect(self.saveProfile)
-            self.profilecreateBtn.clicked.connect(self.runMainWindow)
+            self.profilecreateBtn.clicked.connect(lambda: self.runMainWindow(self.userData))
         def set_appear(self):
             self.userData = data
             self.setWindowTitle('loadProfile')
@@ -137,65 +137,62 @@ def main():
             self.mainLayout = QVBoxLayout()
             self.profilesLayout = QVBoxLayout()
             self.radioBtnGroup = QButtonGroup()
-
-            if firstOpen:
-                self.helloTxt = QLabel('Добро пожаловать, у вас нету профиля\nХотите создать новый или продолжите как гость?')
-                self.newProfileBtn = QPushButton('Создать новый профиль')
-                self.goGuest = QPushButton('Продолжить как гость')
-                self.loadingLayout = QVBoxLayout()
-                self.secondLayout = QHBoxLayout()
-                self.loadingLayout.addWidget(self.helloTxt, alignment= Qt.AlignCenter)
-                self.secondLayout.addWidget(self.newProfileBtn)
-                self.secondLayout.addWidget(self.goGuest)
-                self.loadingLayout.addLayout(self.secondLayout)
-                self.mainLayout.addLayout(self.loadingLayout)
-                self.newProfileBtn.clicked.connect(lambda: self.profileInit(self.userData))
-                self.goGuest.clicked.connect(self.runMainWindow)
-            else:
-                if profilesCount == 1:
-                    with open("src/"+profiles[0], 'r')as firstProfile:
-                        self.firstProfile = json.load(firstProfile)
-                        self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                    self.profilesLayout.addWidget(self.firstProfileBtn)
-                    self.radioBtnGroup.addButton(self.firstProfileBtn)
-                elif profilesCount == 2:
-                    with open("src/"+profiles[0], 'r')as firstProfile:
-                        self.firstProfile = json.load(firstProfile)
-                        self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                    with open("src/"+profiles[1], 'r')as secondProfile:
-                        self.secondProfile = json.load(secondProfile)
-                        self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
-                    self.profilesLayout.addWidget(self.firstProfileBtn)
-                    self.profilesLayout.addWidget(self.secondProfileBtn)
-                    self.radioBtnGroup.addButton(self.firstProfileBtn)
-                    self.radioBtnGroup.addButton(self.secondProfileBtn)
-                elif profilesCount == 3:
-                    with open("src/"+profiles[0], 'r')as firstProfile:
-                        self.firstProfile = json.load(firstProfile)
-                        self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                    with open("src/"+profiles[1], 'r')as secondProfile:
-                        self.secondProfile = json.load(secondProfile)
-                        self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
-                    with open("src/"+profiles[2], 'r')as thirdProfile:
-                        self.thirdProfile = json.load(thirdProfile)
-                        self.thirdProfileBtn = QRadioButton(self.thirdProfile['profile.name'])
-                    self.profilesLayout.addWidget(self.firstProfileBtn)
-                    self.profilesLayout.addWidget(self.secondProfileBtn)
-                    self.profilesLayout.addWidget(self.thirdProfileBtn)
-                    self.radioBtnGroup.addButton(self.firstProfileBtn)
-                    self.radioBtnGroup.addButton(self.secondProfileBtn)
-                    self.radioBtnGroup.addButton(self.thirdProfileBtn)
-                self.mainLayout.addLayout(self.profilesLayout)
-        def runMainWindow(self):
+            self.helloTxt = QLabel('Добро пожаловать, у вас нету профиля\nХотите создать новый или продолжите как гость?')
+            self.newProfileBtn = QPushButton('Создать новый профиль')
+            self.goGuest = QPushButton('Продолжить как гость')
+            self.loadingLayout = QVBoxLayout()
+            self.secondLayout = QHBoxLayout()
+            self.loadingLayout.addWidget(self.helloTxt, alignment= Qt.AlignCenter)
+            self.newProfileBtn.clicked.connect(lambda: self.profileInit(self.userData))
+            self.goGuest.clicked.connect(lambda: self.runMainWindow(self.userData))
+            if profilesCount == 1:
+                with open("src/"+profiles[0], 'r')as firstProfile:
+                    self.firstProfile = json.load(firstProfile)
+                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
+                self.profilesLayout.addWidget(self.firstProfileBtn)
+                self.radioBtnGroup.addButton(self.firstProfileBtn)
+                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
+            elif profilesCount == 2:
+                with open("src/"+profiles[0], 'r')as firstProfile:
+                    self.firstProfile = json.load(firstProfile)
+                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
+                with open("src/"+profiles[1], 'r')as secondProfile:
+                    self.secondProfile = json.load(secondProfile)
+                    self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
+                self.profilesLayout.addWidget(self.firstProfileBtn)
+                self.profilesLayout.addWidget(self.secondProfileBtn)
+                self.radioBtnGroup.addButton(self.firstProfileBtn)
+                self.radioBtnGroup.addButton(self.secondProfileBtn)
+                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
+            elif profilesCount == 3:
+                with open("src/"+profiles[0], 'r')as firstProfile:
+                    self.firstProfile = json.load(firstProfile)
+                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
+                with open("src/"+profiles[1], 'r')as secondProfile:
+                    self.secondProfile = json.load(secondProfile)
+                    self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
+                with open("src/"+profiles[2], 'r')as thirdProfile:
+                    self.thirdProfile = json.load(thirdProfile)
+                    self.thirdProfileBtn = QRadioButton(self.thirdProfile['profile.name'])
+                self.profilesLayout.addWidget(self.firstProfileBtn)
+                self.profilesLayout.addWidget(self.secondProfileBtn)
+                self.profilesLayout.addWidget(self.thirdProfileBtn)
+                self.radioBtnGroup.addButton(self.firstProfileBtn)
+                self.radioBtnGroup.addButton(self.secondProfileBtn)
+                self.radioBtnGroup.addButton(self.thirdProfileBtn)
+                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
+            self.secondLayout.addWidget(self.newProfileBtn)
+            self.secondLayout.addWidget(self.goGuest)
+            self.loadingLayout.addLayout(self.secondLayout)
+            self.mainLayout.addLayout(self.profilesLayout)
+            self.mainLayout.addLayout(self.loadingLayout)
+        def runMainWindow(self, data):
             self.hide()
             self.mw = MainWin(self.userData)
-        def connects(self):
-            pass
         def __init__(self):
             super().__init__()
             self.initUI()
             self.set_appear()
-            self.connects()
             self.show()
     profileWin = ProfileWin()
     mainApp.exec_()
