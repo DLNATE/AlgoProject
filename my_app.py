@@ -44,7 +44,7 @@ def main():
             self.setFixedSize(win_width, win_height)
             self.move(win_x, win_y)
         def initUI(self):
-            self.theme = 'light'
+            self.theme = self.userData
             self.raidioBtnLayout = QHBoxLayout()
             self.radioBtnGroup = QButtonGroup()
             self.darkTheme = QRadioButton('Темная тема')
@@ -70,6 +70,8 @@ def main():
             self.mainLayout.addWidget(self.helloText, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.instrText, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.startBtn, alignment= Qt.AlignCenter)
+            if self.userData['user.theme'] == 'dark':
+                self.darkTheme.setChecked(True)
             self.setLayout(self.mainLayout)
         def connects(self):
             self.startBtn.clicked.connect(self.next_window)
@@ -123,13 +125,8 @@ def main():
             self.mainLayout.addWidget(self.userNameLine, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.userAgeLine, alignment= Qt.AlignCenter)
             self.mainLayout.addWidget(self.profilecreateBtn, alignment= Qt.AlignCenter)
-            
-
             self.profilecreateBtn.clicked.connect(self.saveProfile)
-        def newProfileInit(self):
-            self.profileInit(self.userData)
-        def creatProfile(self):
-            self.newProfileInit()
+            self.profilecreateBtn.clicked.connect(self.runMainWindow)
         def set_appear(self):
             self.userData = data
             self.setWindowTitle('loadProfile')
@@ -152,6 +149,8 @@ def main():
                 self.secondLayout.addWidget(self.goGuest)
                 self.loadingLayout.addLayout(self.secondLayout)
                 self.mainLayout.addLayout(self.loadingLayout)
+                self.newProfileBtn.clicked.connect(lambda: self.profileInit(self.userData))
+                self.goGuest.clicked.connect(self.runMainWindow)
             else:
                 if profilesCount == 1:
                     with open("src/"+profiles[0], 'r')as firstProfile:
@@ -191,8 +190,7 @@ def main():
             self.hide()
             self.mw = MainWin(self.userData)
         def connects(self):
-            self.newProfileBtn.clicked.connect(self.creatProfile)   
-            self.goGuest.clicked.connect(self.runMainWindow)
+            pass
         def __init__(self):
             super().__init__()
             self.initUI()
