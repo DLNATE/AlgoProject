@@ -39,8 +39,8 @@ class SecondWin(QWidget):
         self.Btn2 = QPushButton('Начать делать приседания')
         self.Btn3= QPushButton('Начать финальный тест')
         self.Btn4 = QPushButton('Отправить результаты')
-        self.line1 = QLineEdit(teme[user.name])
-        self.line2 = QLineEdit(teme[user.age])
+        self.line1 = QLineEdit()
+        self.line2 = QLineEdit()
         self.test1_result = QLineEdit()
         self.test2_result = QLineEdit()
         self.test3_result = QLineEdit()
@@ -74,12 +74,12 @@ class SecondWin(QWidget):
     
     def __init__(self, teme):
         super().__init__()
+        self.teme = teme
         self.set_appear()
         self.initUI()
         self.connects()
         self.show()
-        self.teme = teme
-
+        
     def timer_1(self):
         global time
         time = QTime(0, 0, 15)
