@@ -188,7 +188,7 @@ def main():
             self.mainLayout.addLayout(self.loadingLayout)
         def runMainWindow(self, data):
             self.hide()
-            self.mw = MainWin(self.userData)
+            self.mw = MainWin(data)
         def __init__(self):
             super().__init__()
             self.initUI()
