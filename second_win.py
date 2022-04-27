@@ -21,7 +21,7 @@ class SecondWin(QWidget):
         self.Btn3.clicked.connect(self.timer_3)
         self.Btn4.clicked.connect(self.next_window)
     def next_window(self):
-        self.finalwin = FinalWin(self.line2.text(), self.test1_result.text(), self.test2_result.text(), self.test3_result.text())
+        self.finalwin = FinalWin(self.line2.text(), self.test1_result.text(), self.test2_result.text(), self.test3_result.text(), self.teme)
         self.hide()
     def set_appear(self):
         self.setWindowTitle(txt_title)
@@ -39,8 +39,8 @@ class SecondWin(QWidget):
         self.Btn2 = QPushButton('Начать делать приседания')
         self.Btn3= QPushButton('Начать финальный тест')
         self.Btn4 = QPushButton('Отправить результаты')
-        self.line1 = QLineEdit()
-        self.line2 = QLineEdit()
+        self.line1 = QLineEdit(teme["user.name"])
+        self.line2 = QLineEdit(teme["user.age"])
         self.test1_result = QLineEdit()
         self.test2_result = QLineEdit()
         self.test3_result = QLineEdit()
@@ -72,12 +72,13 @@ class SecondWin(QWidget):
         self.Layout.addWidget(self.Text22)
         self.setLayout(self.Layout)
     
-    def __init__(self):
+    def __init__(self, teme):
         super().__init__()
         self.set_appear()
         self.initUI()
         self.connects()
         self.show()
+        self.teme = teme
 
     def timer_1(self):
         global time
