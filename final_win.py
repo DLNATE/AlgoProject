@@ -87,8 +87,9 @@ class FinalWin(QWidget):
         self.setLayout(self.mainLayout)
     def connects(self):
         pass
-    def __init__(self, age, test1_result, test2_result, test3_result):
+    def __init__(self, age, test1_result, test2_result, test3_result, userData):
         super().__init__()
+        self.userData = userData
         self.age = int(age)
         self.test1_result = test1_result
         self.test2_result = test2_result
