@@ -27,7 +27,7 @@ class SecondWin(QWidget):
         self.setWindowTitle(txt_title)
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
-    def initUI(self):
+    def initUI(self, teme):
         self.Layout = QVBoxLayout()
         self.Layout2 = QVBoxLayout()
         self.Text1 = QLabel('Введите Ф.И.О.:')
@@ -39,8 +39,9 @@ class SecondWin(QWidget):
         self.Btn2 = QPushButton('Начать делать приседания')
         self.Btn3= QPushButton('Начать финальный тест')
         self.Btn4 = QPushButton('Отправить результаты')
-        self.line1 = QLineEdit()
-        self.line2 = QLineEdit()
+        self.line1 = QLineEdit(teme['user.name'])
+        
+        self.line2 = QLineEdit(teme['user.age'])
         self.test1_result = QLineEdit()
         self.test2_result = QLineEdit()
         self.test3_result = QLineEdit()
@@ -76,7 +77,7 @@ class SecondWin(QWidget):
         super().__init__()
         self.teme = teme
         self.set_appear()
-        self.initUI()
+        self.initUI(self.teme)
         self.connects()
         self.show()
         
