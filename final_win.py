@@ -1,6 +1,8 @@
 # напиши здесь код третьего экрана приложения
 from json.tool import main
 from instr import *
+import os
+import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QApplication,
@@ -12,6 +14,7 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QPushButton
 )
+
 class FinalWin(QWidget):
     def results(self):
         self.index = (4*(int(self.test1_result)+int(self.test2_result)+int(self.test3_result))- 200) / 10
@@ -75,18 +78,21 @@ class FinalWin(QWidget):
         self.setFixedSize(win_width, win_height)
         self.move(win_x, win_y)
     def initUI(self):
-        self.thkForUsing = QMessageBox()
-        self.thkForUsing.setWindowTitle('Спасибо за использование!')
-        self.thkForUsing.setText(programmers)
-        self.thkForUsing.show()
         self.mainLayout = QVBoxLayout()
         self.yourIndex = QLabel('Ваш индекс Руфье: '+ str(self.index))
         self.yourResults = QLabel('Ваш результат: '+self.resultTest)
+        self.endBtn = QPushButton('Выйти')
         self.mainLayout.addWidget(self.yourIndex, alignment= Qt.AlignCenter)
         self.mainLayout.addWidget(self.yourResults, alignment= Qt.AlignCenter)
+        self.mainLayout.addWidget(self.endBtn, alignment= Qt.AlignCenter)
+        if self.userData['user.theme'] == 'dark':
+            self.setStyleSheet('background: black')
+            self.yourIndex.setStyleSheet('color: white')
+            self.yourResults.setStyleSheet('color: white')
+            self.endBtn.setStyleSheet('background: rgb(0, 0, 153)')
         self.setLayout(self.mainLayout)
     def connects(self):
-        pass
+        self.endBtn.clicked.connect(sys.exit)
     def __init__(self, age, test1_result, test2_result, test3_result, userData):
         super().__init__()
         self.userData = userData
@@ -99,3 +105,5 @@ class FinalWin(QWidget):
         self.initUI()
         self.connects()
         self.show()
+        if os.path.exists('src/guest.json'):
+            os.remove('src/guest.json')
