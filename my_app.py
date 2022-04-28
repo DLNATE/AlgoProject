@@ -1,6 +1,7 @@
 # напиши здесь код основного приложения и первого экрана
 from instr import *
 import json
+import sys
 import os.path
 from second_win import *
 from PyQt5.QtCore import Qt
@@ -18,10 +19,17 @@ from PyQt5.QtWidgets import (
 )
 
 def main():
+    def saveProfile(profile):
+        with open('src/'+profile['profile.name']+'.json', 'w')as file:
+            json.dump(profile, file)
+    def deleteProfile(profile):
+        os.remove('src/'+profile['profile.name']+'.json')
+        os.execl(sys.executable, sys.executable, *sys.argv)
     mainApp = QApplication([])
     class MainWin(QWidget):
         def changeDarkTheme(self):
-            self.theme = 'dark'
+            self.userData['user.theme'] = 'dark'
+            saveProfile(self.userData)
             self.setStyleSheet('background: black')
             self.darkTheme.setStyleSheet('color: white; margin-left: 100px')
             self.lightTheme.setStyleSheet('color: white; margin-left: 20px')
@@ -29,7 +37,8 @@ def main():
             self.instrText.setStyleSheet('color: white; font-size: 14px')
             self.startBtn.setStyleSheet('background: rgb(0, 0, 153); padding: 5px 15px')
         def changeLightTheme(self):
-            self.theme = 'light'
+            self.userData['user.theme'] = 'light'
+            saveProfile(self.userData)
             self.setStyleSheet('background: white')
             self.darkTheme.setStyleSheet('color: black; margin-left: 100px')
             self.lightTheme.setStyleSheet('color: black; margin-left: 20px')
@@ -37,7 +46,7 @@ def main():
             self.instrText.setStyleSheet('color: black; font-size: 14px')
             self.startBtn.setStyleSheet('background: white')
         def next_window(self):
-            self.secondWin = SecondWin(self.theme)
+            self.secondWin = SecondWin(self.userData)
             self.hide()
         def set_appear(self):
             self.setWindowTitle(txt_title)
@@ -72,6 +81,7 @@ def main():
             self.mainLayout.addWidget(self.startBtn, alignment= Qt.AlignCenter)
             if self.userData['user.theme'] == 'dark':
                 self.darkTheme.setChecked(True)
+                self.changeDarkTheme()
             self.setLayout(self.mainLayout)
         def connects(self):
             self.startBtn.clicked.connect(self.next_window)
@@ -90,7 +100,7 @@ def main():
         'user.name' : '',
         'user.age' : '',
         'user.theme' : 'light',
-        'profile.name' : ''
+        'profile.name' : 'guest'
     }
     firstOpen = ''
     path = 'src/'
@@ -135,9 +145,9 @@ def main():
             self.setLayout(self.mainLayout)
         def initUI(self):
             self.mainLayout = QVBoxLayout()
-            self.profilesLayout = QVBoxLayout()
+            
             self.radioBtnGroup = QButtonGroup()
-            self.helloTxt = QLabel('Добро пожаловать, у вас нету профиля\nХотите создать новый или продолжите как гость?')
+            self.helloTxt = QLabel('Добро пожаловать, выберите профиль, если он есть\nИли создайте новый, еще вы можетепродолжить как гость')
             self.newProfileBtn = QPushButton('Создать новый профиль')
             self.goGuest = QPushButton('Продолжить как гость')
             self.loadingLayout = QVBoxLayout()
@@ -145,48 +155,26 @@ def main():
             self.loadingLayout.addWidget(self.helloTxt, alignment= Qt.AlignCenter)
             self.newProfileBtn.clicked.connect(lambda: self.profileInit(self.userData))
             self.goGuest.clicked.connect(lambda: self.runMainWindow(self.userData))
-            if profilesCount == 1:
-                with open("src/"+profiles[0], 'r')as firstProfile:
-                    self.firstProfile = json.load(firstProfile)
-                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                self.profilesLayout.addWidget(self.firstProfileBtn)
-                self.radioBtnGroup.addButton(self.firstProfileBtn)
-                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
-            elif profilesCount == 2:
-                with open("src/"+profiles[0], 'r')as firstProfile:
-                    self.firstProfile = json.load(firstProfile)
-                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                with open("src/"+profiles[1], 'r')as secondProfile:
-                    self.secondProfile = json.load(secondProfile)
-                    self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
-                self.profilesLayout.addWidget(self.firstProfileBtn)
-                self.profilesLayout.addWidget(self.secondProfileBtn)
-                self.radioBtnGroup.addButton(self.firstProfileBtn)
-                self.radioBtnGroup.addButton(self.secondProfileBtn)
-                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
-            elif profilesCount == 3:
-                with open("src/"+profiles[0], 'r')as firstProfile:
-                    self.firstProfile = json.load(firstProfile)
-                    self.firstProfileBtn = QRadioButton(self.firstProfile['profile.name'])
-                with open("src/"+profiles[1], 'r')as secondProfile:
-                    self.secondProfile = json.load(secondProfile)
-                    self.secondProfileBtn = QRadioButton(self.secondProfile['profile.name'])
-                with open("src/"+profiles[2], 'r')as thirdProfile:
-                    self.thirdProfile = json.load(thirdProfile)
-                    self.thirdProfileBtn = QRadioButton(self.thirdProfile['profile.name'])
-                self.profilesLayout.addWidget(self.firstProfileBtn)
-                self.profilesLayout.addWidget(self.secondProfileBtn)
-                self.profilesLayout.addWidget(self.thirdProfileBtn)
-                self.radioBtnGroup.addButton(self.firstProfileBtn)
-                self.radioBtnGroup.addButton(self.secondProfileBtn)
-                self.radioBtnGroup.addButton(self.thirdProfileBtn)
-                self.firstProfileBtn.clicked.connect(lambda: self.runMainWindow(self.firstProfile))
             self.secondLayout.addWidget(self.newProfileBtn)
             self.secondLayout.addWidget(self.goGuest)
             self.loadingLayout.addLayout(self.secondLayout)
-            self.mainLayout.addLayout(self.profilesLayout)
+            for i in profiles:
+                self.profilesLayout = QHBoxLayout()
+                with open('src/'+i , 'r')as file:
+                    self.profile = json.load(file)
+                self.profileBtn = QRadioButton(self.profile['profile.name'])
+                self.deleteProfile = QPushButton('delete')
+                self.deleteProfile.setStyleSheet('margin-right: 500px')
+                self.profilesLayout.addWidget(self.profileBtn, 10)
+                self.profilesLayout.addWidget(self.deleteProfile, 90)
+                self.radioBtnGroup.addButton(self.profileBtn)
+                self.mainLayout.addLayout(self.profilesLayout)
+                self.profileBtn.clicked.connect(lambda: self.runMainWindow(self.profile))
+                self.deleteProfile.clicked.connect(lambda: deleteProfile(self.profile))
+            
             self.mainLayout.addLayout(self.loadingLayout)
         def runMainWindow(self, data):
+            saveProfile(self.userData)
             self.hide()
             self.mw = MainWin(data)
         def __init__(self):
