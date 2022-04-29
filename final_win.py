@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import (
 
 class FinalWin(QWidget):
     def results(self):
-        self.index = (4*(int(self.test1_result)+int(self.test2_result)+int(self.test3_result))- 200) / 10
+        self.index = (((int(self.test1_result)+int(self.test2_result)+int(self.test3_result))- 200)*4) / 10
         if self.age == 7 or self.age == 8:
             if self.index <= 6.4:
                 self.resultTest = 'Высокий'
